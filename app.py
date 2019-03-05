@@ -12,24 +12,32 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 df = parse_tsv()
 y_values = list(df)
 y_values.remove('model')
-models = [item for item in df[df.columns[0]].unique()]
-mpg = [item for item in df[df.columns[1]].unique()]
 
+dropdown_style = {
+    'display': 'flex',
+    'justifyContent': 'center'
+}
+
+table_style = {
+    'display': 'flex',
+    'justifyContent': 'center'
+}
 
 def generate_table(dataframe):
-    return html.Table(
+    return html.Div(style=table_style, children=[html.Table(
         # Header
         [html.Tr([html.Th(col) for col in dataframe.columns])] +
 
         # Body
         [html.Tr([
             html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
-        ]) for i, _ in enumerate(len(dataframe))]
-    )
+        ]) for i in range(len(dataframe))]
+    )])
 
-app.layout = html.Div([
+app.layout = html.Div(style={'textAlign': 'center'}, children=[
+    html.H1('Motor Trend Car Road Tests'),
     html.Div([
-        html.Div([
+        html.Div(style=dropdown_style, children=[
             dcc.Dropdown(
                 id='yaxis-column',
                 options=[{'label': i, 'value': i} for i in y_values],
@@ -47,14 +55,14 @@ app.layout = html.Div([
 def update_graph(yaxis_column_name):
     return {
         'data': [go.Bar(
-            x=models,
+            x=[item for item in df[df.columns[0]].unique()],
             y=df[f'{yaxis_column_name}'].values
         )],
         'layout': go.Layout(
-            yaxis={
-                'title': yaxis_column_name
-            }
-        )
+                yaxis={
+                    'title': yaxis_column_name
+                },
+            ), 
     }
 
 if __name__ == '__main__':
