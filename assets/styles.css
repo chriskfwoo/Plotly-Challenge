@@ -5,3 +5,17 @@
 h1 {
     margin-top: 20px;  
 }
+
+table {
+    margin: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+td:first-child,
+th:first-child {
+    padding-left: 15px;
+}
+td:last-child,
+th:last-child {
+    padding-right: 15px;
+}

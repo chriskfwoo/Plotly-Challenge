@@ -3,6 +3,13 @@
 - Given a dataset, create a dash app!
     - Dataset is located `/data/mtcars.tsv`
 
+## What did I do?
+
+- Created a bar graph
+    - X-axis: All the models in dataset
+    - Y-axis: Stats information about each model 
+    - Dropdown: Select which information to display
+- Created a table to display information for each model
 
 ## Getting started
 

@@ -9,22 +9,33 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
-df = parse_tsv()
+# dataset
+df = parse_tsv('mtcars.tsv')
+
+# get the headers from tsv and remove the model header
 y_values = list(df)
 y_values.remove('model')
 
-dropdown_style = {
+
+# styling dictionaries
+flex_center = {
     'display': 'flex',
     'justifyContent': 'center'
 }
 
-table_style = {
-    'display': 'flex',
-    'justifyContent': 'center'
+colors = {
+    'grey': '#F4F6F8'
 }
 
 def generate_table(dataframe):
-    return html.Div(style=table_style, children=[html.Table(
+    """"
+    Generates dash table 
+
+    :param dataframe: dataframe object
+    :return: dash table layout
+    """
+
+    return html.Div(style=flex_center, children=[html.Table(
         # Header
         [html.Tr([html.Th(col) for col in dataframe.columns])] +
 
@@ -37,7 +48,7 @@ def generate_table(dataframe):
 app.layout = html.Div(style={'textAlign': 'center'}, children=[
     html.H1('Motor Trend Car Road Tests'),
     html.Div([
-        html.Div(style=dropdown_style, children=[
+        html.Div(style=flex_center, children=[
             dcc.Dropdown(
                 id='yaxis-column',
                 options=[{'label': i, 'value': i} for i in y_values],
@@ -59,9 +70,13 @@ def update_graph(yaxis_column_name):
             y=df[f'{yaxis_column_name}'].values
         )],
         'layout': go.Layout(
+                xaxis={
+                    'title': 'Models'
+                },
                 yaxis={
                     'title': yaxis_column_name
                 },
+                plot_bgcolor=colors['grey']
             ), 
     }
 
