@@ -10,6 +10,7 @@
     - Y-axis: Stats information about each model 
     - Dropdown: Select which information to display
 - Created a table to display information for each model
+![Screenshot of App](https://i.imgur.com/ISRGLOe.png)
 
 ## Getting started
 
